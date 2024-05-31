@@ -1,28 +1,28 @@
-# Repeat Browser Data Processing
+# Repeat Browser Data Processing (Iteres)
 
 ---
 
 In this repo, we provide a pipeline to process the transposable elements(TE),
 which is used for getting alignment statistics of transposable elements and 
-save the processed data into a proper file format that suitable for our repeat browser. 
+save the processed data into a proper file format that is suitable for our repeat browser. 
 
 This pipeline includes a modified [iteres](https://epigenome.wustl.edu/iteres/) pipeline and 
-a python script to convert the analysis into [zarr](https://zarr.dev/) format. 
-The output zarr files can be uploaded into our [repeat browser](https://repeatbrowser.org/) for the visualization.
+a Python script to convert the analysis into [zarr](https://zarr.dev/) format. 
+The output zarr files can be uploaded into our [repeat browser](https://repeatbrowser.org/) for visualization.
 
 
 ## Prerequisites
 
 ---
 
-### 1. Compile the iteres and downloaded related files
+### 1. Compile the iteres and download related files
 In the top directory, run 
 ```bash
 git clone clone Jiawei-Shen/Repeat-Browser_data_processing
 cd Repeat-Browser_data_processing
 make
 ```
-And here's some related files you may need:
+Here are some related files you may need:
 
 Repeat size file: [here](https://epigenome.wustl.edu/iteres/download/hg19/subfam.size) (length of consensus sequence of repeat subfamily)
 
@@ -45,17 +45,17 @@ pip install -r requirements.txt
 
 ### Step 0. Align the reads
 
-If you already have a bam file, this step can be omitted. If not, here's some tutorials to align the reads in different scenarios.
+If you already have a bam file, this step can be omitted. If not, here are some tutorials to align the reads in different scenarios.
 
 #### (1). ChIP-Seq data
-We recommend users to use [BWA](https://github.com/lh3/bwa) to align the ChIP-Seq data.
+We recommend users use [BWA](https://github.com/lh3/bwa) to align the ChIP-Seq data.
 ```bash
 # change the path to the bwa folder
 ./bwa index ref.fa read-se.fq.gz | gzip -3 > aln-se.sam.gz
 ```
 
 #### (2). CAGE-Seq data
-We recommend users to use [STAR](https://github.com/alexdobin/STAR/tree/master) to align the CAGE-Seq data.
+We recommend users use [STAR](https://github.com/alexdobin/STAR/tree/master) to align the CAGE-Seq data.
 Since we are focused on the multireads, it will have some differences from the default settings of STAR. 
 ```bash
 STAR --chimSegmentMin 100  
@@ -120,7 +120,7 @@ bash run.sh --signal_bam_file /path/to/signal.bam
 In this case, you will have to set the length of cage_window, 
 which is the length of basepairs segments around 5' end during our process. 
 
-The default value of cage_window is 20, which meaning the segment we select is from 20 bp in front of 5' end to 20 bp behind it.
+The default value of cage_window is 20, which means the segment we select is from 20 bp in front of 5' end to 20 bp behind it.
 
 ```bash
 bash run.sh --bam_file /path/to/your/bam_file 
